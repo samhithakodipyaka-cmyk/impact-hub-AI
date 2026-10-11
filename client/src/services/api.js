@@ -1,4 +1,13 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Ensure API_BASE always points to a valid URL and includes the /api suffix
+const rawEnvUrl = (import.meta.env.VITE_API_URL || '').trim();
+let API_BASE = 'http://localhost:5000/api';
+
+if (rawEnvUrl) {
+  // Strip trailing slashes
+  const trimmed = rawEnvUrl.replace(/\/+$/, '');
+  // If user passed http://... or https://... without /api, add /api
+  API_BASE = trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+}
 
 /**
  * Centralized API request wrapper

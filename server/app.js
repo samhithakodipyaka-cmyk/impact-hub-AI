@@ -65,11 +65,25 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Fallback mounts without /api prefix for resilient routing
+app.use('/health', healthRoutes);
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/orgs', orgRoutes);
+app.use('/initiatives', initiativeRoutes);
+app.use('/participations', participationRoutes);
+app.use('/impact', impactRoutes);
+app.use('/ai', aiRoutes);
+app.use('/feed', feedRoutes);
+app.use('/notifications', notificationRoutes);
+app.use('/reports', reportRoutes);
+app.use('/admin', adminRoutes);
+
 // 404 handler for undefined API routes
-app.use('/api/*', (req, res) => {
+app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: `API endpoint not found: ${req.method} ${req.originalUrl}`,
+    message: `Endpoint not found: ${req.method} ${req.originalUrl}`,
   });
 });
 
