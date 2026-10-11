@@ -257,5 +257,14 @@ tests 4 | suites 0 | pass 4 | fail 0 | cancelled 0
 
 ---
 
-## 9. License & Integrity Commitment
+## 9. Operational Considerations & Known Behaviors
+
+1. **Email Password Reset**: In development, password reset tokens are securely generated, cryptographically hashed, and logged to the server console rather than sending simulated emails through third-party SMTP. In production, configure SendGrid, Resend, or AWS SES via environment variables.
+2. **Media and Image Storage**: To adhere strictly to standard MERN deployment without external paid S3 buckets, user avatars, initiative banners, and evidence photos use validated HTTPS URLs. This guarantees compatibility with stateless container platforms like Render without data loss on dyno restart.
+3. **Database Indexing**: Automatic index cleansing runs during startup in `server/config/db.js` to ensure legacy indexes from previous development setups do not conflict with Mongoose collection constraints.
+
+---
+
+## 10. License & Integrity Commitment
 ImpactHub AI is released under the **MIT License**. The platform strictly adheres to zero-fabrication metrics standards to restore trust and transparency to social service.
+
